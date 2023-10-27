@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { Question } from "../interfaces/question";
-import { Quiz } from "../interfaces/quiz";
+import { Question } from "./question";
+import { Quiz } from "./quiz";
 
 import "./QuizExpanded.css";
 import { QuizQuestion } from "./QuizQuestion";
@@ -11,7 +11,12 @@ export const QuizExpanded = ({
     editQuiz,
     resetView,
     switchEdit
-}: {}) => {
+}: {
+    quiz: Quiz;
+    editQuiz: (questionId: number, newQuiz: Quiz) => void;
+    resetView: () => void;
+    switchEdit: () => void;
+}) => {
     const filteredQuestions = quiz.questionList.filter(
         (q: Question): boolean =>
             (quiz.published && q.published) || !quiz.published
@@ -29,7 +34,7 @@ export const QuizExpanded = ({
     };
 
     const totalPoints = filteredQuestions.reduce(
-        (prev: number, q: Question): number => prev + q.p,
+        (prev: number, q: Question): number => prev + q.points,
         0
     );
 
@@ -53,6 +58,8 @@ export const QuizExpanded = ({
         editQuiz(quiz.id, {
             ...quiz,
             questionList: quiz.questionList.map(
+                (q: Question): Question =>
+                    q.id === questionId ? { ...q, submission: sub } : q
             )
         });
     };
@@ -92,7 +99,7 @@ export const QuizExpanded = ({
                 <QuizQuestion
                     key={quiz.id + "|" + q.id}
                     index={index}
-                    question="q"
+                    question={q}
                     submitted={submitArr[index]}
                     handleSubmit={handleQuestionSubmit}
                     addPoints={addPoints}

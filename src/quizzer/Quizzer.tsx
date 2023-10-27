@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Quiz } from "../interfaces/quiz";
-import { Question, QuestionType } from "../interfaces/question";
+import { Quiz } from "./quiz";
 import { QuizList } from "./QuizList";
 import { AddQuizModal } from "./AddQuizModal";
+import { Question, QuestionType } from "./question";
 
 import "./Quizzer.css";
-import sample from "../data/quizzes.json";
+import sample from "./quizzes.json";
 
 const QUIZZES = sample.map(
     (quiz): Quiz => ({
@@ -31,6 +31,13 @@ export const Quizzer = () => {
     }
 
     function addQuiz(title: string, body: string) {
+        const newQuiz: Quiz = {
+            title,
+            body,
+            id: quizzes.length + 1,
+            questionList: [],
+            published: false
+        };
         setQuizzes([...quizzes, newQuiz]);
     }
 
@@ -56,7 +63,7 @@ export const Quizzer = () => {
             ></AddQuizModal>
             <hr />
             <h2 style={{ color: "white" }}>Application Sketch</h2>
-            {/* <img src={require("./sketchFINAL.jpg")} /> */}
+            {}
             <hr />
             <div style={{ color: "white" }}>
                 <h2>Completed Features</h2>

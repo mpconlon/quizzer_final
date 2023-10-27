@@ -1,10 +1,10 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Quiz } from "../interfaces/quiz";
-import { Question, QuestionType } from "../interfaces/question";
+import { Quiz } from "./quiz";
+import { Question, QuestionType } from "./question";
 import { Quizzer } from "./Quizzer";
 import userEvent from "@testing-library/user-event";
-import sample from "../data/quizzes.json";
+import sample from "./quizzes.json";
 
 const QUIZZES = sample.map(
     (quiz): Quiz => ({
@@ -169,9 +169,6 @@ describe("Quizzer Tests", () => {
         expect(screen.queryByText("Simple_Questions")).not.toBeInTheDocument();
     });
 
-    test("Users can delete an existing quiz question", () => {
-    });
-
     test("Users can add a new quiz question", () => {
         const text = screen.getByText("Simple_Questions");
         text.click();
@@ -198,8 +195,8 @@ describe("Quizzer Tests", () => {
         ).toBeInTheDocument();
     });
 
-    test("Users can edit the questions and fields of a quiz", () => {
-    });
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    test("Users can edit the questions and fields of a quiz", () => {});
 
     test("Users can reorder quiz questions", () => {
         const text = screen.getByText("Simple_Questions");
